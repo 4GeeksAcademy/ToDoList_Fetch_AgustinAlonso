@@ -1,13 +1,19 @@
 import React from "react";
 
-const Delete = ({taskKey, tasksList, setTasksList}) => {
-console.log({taskKey, tasksList, setTasksList})
-const eliminar = () =>{
-const newTasksList = tasksList.filter((_,index)=> index !== taskKey)
-setTasksList(newTasksList)
+const Delete = ({ taskKey, getList }) => {
 
-}
-    return(
+    const eliminar = () => {
+        console.log('Inició el fetch de Delete')
+        fetch(`https://playground.4geeks.com/todo/todos/${taskKey}`, {
+            method: 'DELETE'
+        }).then((res) => {
+            console.log(`staus:`, res.status)
+
+            getList()
+        })
+        console.log('Finalizó el fetch de Delete')
+    }
+    return (
         <span onClick={eliminar}>❌</span>
     )
 }
